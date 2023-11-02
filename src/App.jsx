@@ -1,47 +1,47 @@
-import Lista from './components/Lista'
+
 import './App.css'
 import { useState } from 'react'
+import Card from './components/Card'
 
 function App() {
 
-  const[search, setSearch ]= useState("")
-  const[docsFound, setDocsFound] = useState([])
-  const[error, setError] = useState(false)
-  const[show, setShow] = useState(false)
-  let doctores = [
-    { id: 1, nombre: 'Rick Sanchez', especialidad: 'Gastroenterologo'},
-    { id: 2, nombre: 'Julius Hibbert' , especialidad: 'Dermatologo'},
-    { id: 3, nombre: 'Nick Riviera' , especialidad: 'Otrorrinonaringologo'},
-    { id: 4, nombre: 'John Zoidberg ' , especialidad: 'Cirujano'}
-  ]
+  const [nombre, setNombre] = useState("");
+  const [personaje, setPersonaje] = useState("");
+  const [show, setShow] = useState(false)
+  const [error, setError] = useState(false)
 
-  const handleChange = (e) => setSearch(e.target.value.trim())
-  const handleSearch = () =>{
-    const filteredDocs = doctores.filter(doctor => doctor.nombre.toLocaleLowerCase().includes(search.toLocaleLowerCase()))
-    setDocsFound(filteredDocs)
-    if(filteredDocs.length > 0){
-      setShow(true)
-      setError(false)
-    } else{
+  const onChangeNombre = (e) => setNombre(e.target.value);
+  const onChangePersonaje = (e) => setPersonaje(e.target.value);
+
+  const onSubmitForm = (e) => {
+    e.preventDefault();
+    if (nombre.length > 3 && !nombre.includes(" ") && personaje.length > 6) {
+      setShow(true);
+      setError(false);
+    }else { 
       setError(true)
-      setShow(false)
     }
   }
+
+
 return(
-  <>
-  <input type="text" placeholder="busqueda" onChange={handleChange}/>
-  <button onClick={handleSearch}>buscar🔍</button>
-  
-  {show ?
-    <>
-      <h3>Doctores encontrados</h3>  
-      <Lista doctores={docsFound}/>
-    </>
+  <div className='app'>
+  <form onSubmit={onSubmitForm}>
+    <input type="text" placeholder='ingresa tu nombre' value={nombre} onChange={onChangeNombre}/>
+    <br/>
+    <input type='text' placeholder='personaje favorito de marvel' value={personaje} onChange={onChangePersonaje}/>
+    <br/>
+    <button type='submit'>Enviar</button>
+  </form>
+  <div>
+    {show ?
+      <Card nombre={nombre} personaje={personaje}/>
     :
-    <Lista doctores={doctores}/>
+      null
     }
-    {error && <h3>No se encontraron doctores.</h3>} 
-  </>
+    {error && <h5 style={{color:"red"}}> verifique los datos ingresados</h5>}
+  </div>
+  </div>
   )
 }
 

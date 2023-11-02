@@ -4,6 +4,26 @@
   padding: 2rem;
   text-align: center;
 }
+.app input {
+    width: 20em;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 10px;
+    
+}
+.app button {
+  width: 18em;
+  background-color: green;
+
+}
+.app{
+    
+    background-color: darkgray;
+    border: 1px solid gray;
+    border-radius:  10px;
+    margin: 20px;
+    
+}
 
 .logo {
   height: 6em;
