@@ -15,7 +15,7 @@ function App() {
 
   const onSubmitForm = (e) => {
     e.preventDefault();
-    if (nombre.length > 3 && !nombre.includes(" ") && personaje.length > 6) {
+    if (nombre.length > 3 && !nombre.startsWith(" ") && personaje.length > 6) {
       setShow(true);
       setError(false);
     }else { 
